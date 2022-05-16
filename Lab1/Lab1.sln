@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MKLWrapper", "MKLWrapper\MK
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MKLVMRuntime", "MKLVMRuntime\MKLVMRuntime.vcxproj", "{0F4916C0-2FC0-40C7-BDE7-02DE8D21039D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MKLVMApplication", "MKLVMApplication\MKLVMApplication.csproj", "{1EBC2047-1364-4643-9FDD-00D4BFF6B70B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MKLBenchmarkApp", "MKLVMApplication\MKLBenchmarkApp.csproj", "{1EBC2047-1364-4643-9FDD-00D4BFF6B70B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
