@@ -18,7 +18,7 @@ namespace MKLWrapper
 
         }
 
-        [DllImport("MKLVMRuntime.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("..\\..\\..\\..\\x64\\Debug\\MKLVMRuntime.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void CallMKLFunction(VMf function_code, int nodesNumber, double[] points, double[] results);
     }
 }

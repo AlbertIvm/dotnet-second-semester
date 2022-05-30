@@ -7,7 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MKLWrapper", "MKLWrapper\MK
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MKLVMRuntime", "MKLVMRuntime\MKLVMRuntime.vcxproj", "{0F4916C0-2FC0-40C7-BDE7-02DE8D21039D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MKLBenchmarkApp", "MKLVMApplication\MKLBenchmarkApp.csproj", "{1EBC2047-1364-4643-9FDD-00D4BFF6B70B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MKLBenchmarkApp", "MKLVMApplication\MKLBenchmarkApp.csproj", "{1EBC2047-1364-4643-9FDD-00D4BFF6B70B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AD054A08-4584-43D3-9B6C-DE1750A6CCE2} = {AD054A08-4584-43D3-9B6C-DE1750A6CCE2}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestbenchTerminal", "TestbenchTerminal\TestbenchTerminal.csproj", "{A5CA47C3-3326-45EE-B986-16799E4D8AE3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +60,18 @@ Global
 		{1EBC2047-1364-4643-9FDD-00D4BFF6B70B}.Release|x64.Build.0 = Release|Any CPU
 		{1EBC2047-1364-4643-9FDD-00D4BFF6B70B}.Release|x86.ActiveCfg = Release|Any CPU
 		{1EBC2047-1364-4643-9FDD-00D4BFF6B70B}.Release|x86.Build.0 = Release|Any CPU
+		{A5CA47C3-3326-45EE-B986-16799E4D8AE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5CA47C3-3326-45EE-B986-16799E4D8AE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5CA47C3-3326-45EE-B986-16799E4D8AE3}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A5CA47C3-3326-45EE-B986-16799E4D8AE3}.Debug|x64.Build.0 = Debug|Any CPU
+		{A5CA47C3-3326-45EE-B986-16799E4D8AE3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A5CA47C3-3326-45EE-B986-16799E4D8AE3}.Debug|x86.Build.0 = Debug|Any CPU
+		{A5CA47C3-3326-45EE-B986-16799E4D8AE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5CA47C3-3326-45EE-B986-16799E4D8AE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5CA47C3-3326-45EE-B986-16799E4D8AE3}.Release|x64.ActiveCfg = Release|Any CPU
+		{A5CA47C3-3326-45EE-B986-16799E4D8AE3}.Release|x64.Build.0 = Release|Any CPU
+		{A5CA47C3-3326-45EE-B986-16799E4D8AE3}.Release|x86.ActiveCfg = Release|Any CPU
+		{A5CA47C3-3326-45EE-B986-16799E4D8AE3}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
