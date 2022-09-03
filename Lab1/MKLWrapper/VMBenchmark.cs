@@ -8,12 +8,12 @@ namespace MKLWrapper
         public ObservableCollection<VMTime> TimeResults { get; set; }
         public ObservableCollection<VMAccuracy> AccuracyResults { get; set; }
 
-        public void AddVMTime(VMGrid grid)
+        public void AddVMTime(VMf functionType, VMGrid grid)
         {
 
         }
 
-        public void AddVMAccuracy(VMGrid grid)
+        public void AddVMAccuracy(VMf functionType, VMGrid grid)
         {
 
         }
