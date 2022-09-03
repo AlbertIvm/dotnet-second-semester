@@ -1,7 +1,8 @@
 #include "pch.h"
 
-#include <iostream>
 #include <chrono>
+#include <cmath>
+#include <iostream>
 
 #include "mkl.h"
 
@@ -15,6 +16,7 @@ extern "C" _declspec(dllexport)
 void CallMKLFunction(int function_code, const MKL_INT n, const double *points, double *timings,
 				     double &max_error, double &max_error_arg, double *max_error_func_values, int& ret)
 {
+	// These will only be used internally
 	double* results_sin_ha = new double[n];
 	double* results_sin_la = new double[n];
 	double* results_sin_ep = new double[n];
@@ -22,17 +24,81 @@ void CallMKLFunction(int function_code, const MKL_INT n, const double *points, d
 	double* results_cos_ha = new double[n];
 	double* results_cos_ep = new double[n];
 
-	// TODO: find out why calls are failing and add proper code here
+	// A hack to avoid code copying for initialization of parameters
+	max_error = -1;
+
+	// Time measurement code is far from perfect, but is best
+	// I could do without a higher order function
+	using clock = std::chrono::system_clock;
+	using ms = std::chrono::duration<double, std::milli>;
+	clock::time_point before;
+	ms duration;
+
+	// A hack to warm up cache
+	vmdSin(n, points, results_sin_ha, VML_EP);
+	
 	switch (function_code) {
 	case VMf::Sin:
-		//vmdSin(n, points, results_sin_ha, VML_HA);
-		//vmdSin(n, points, results_sin_la, VML_LA);
-		//vmdSin(n, points, results_sin_ep, VML_EP);
+		// Run high accuracy calculations
+		before = clock::now();
+		vmdSin(n, points, results_sin_ha, VML_HA);
+		duration = clock::now() - before;
+		timings[0] = duration.count();
+		
+		// Run low accuracy calculations
+		before = clock::now();
+		vmdSin(n, points, results_sin_la, VML_LA);
+		duration = clock::now() - before;
+		timings[1] = duration.count();
+
+		// Run enhanced performance calculations
+		before = clock::now();
+		vmdSin(n, points, results_sin_ep, VML_EP);
+		duration = clock::now() - before;
+		timings[2] = duration.count();
+
+		// Calculating errors
+		for (size_t i = 0; i < n; ++i) {
+			auto error = abs(results_sin_ha[i] - results_sin_ep[i]);
+			if (error > max_error) {
+				max_error = error;
+				max_error_arg = points[i];
+				max_error_func_values[0] = results_sin_ha[i];
+				max_error_func_values[1] = results_sin_la[i];
+				max_error_func_values[2] = results_sin_ep[i];
+			}
+		}
 		break;
 	case VMf::Cos:
-		//vmdCos(n, points, results_cos_ha, VML_HA);
-		//vmdCos(n, points, results_cos_la, VML_LA);
-		//vmdCos(n, points, results_cos_ep, VML_EP);
+		// Run high accuracy calculations
+		before = clock::now();
+		vmdCos(n, points, results_cos_ha, VML_HA);
+		duration = clock::now() - before;
+		timings[0] = duration.count();
+
+		// Run low accuracy calculations
+		before = clock::now();
+		vmdCos(n, points, results_cos_la, VML_LA);
+		duration = clock::now() - before;
+		timings[1] = duration.count();
+
+		// Run enhanced performance calculations
+		before = clock::now();
+		vmdCos(n, points, results_cos_ep, VML_EP);
+		duration = clock::now() - before;
+		timings[2] = duration.count();
+
+		// Calculating errors
+		for (size_t i = 0; i < n; ++i) {
+			auto error = abs(results_cos_ha[i] - results_cos_ep[i]);
+			if (error > max_error) {
+				max_error = error;
+				max_error_arg = points[i];
+				max_error_func_values[0] = results_cos_ha[i];
+				max_error_func_values[1] = results_cos_la[i];
+				max_error_func_values[2] = results_cos_ep[i];
+			}
+		}
 		break;
 	case VMf::SinCos:
 		//vmdSinCos(n, points, results_sin_ha, results_cos_ha, VML_HA);
@@ -41,15 +107,7 @@ void CallMKLFunction(int function_code, const MKL_INT n, const double *points, d
 		break;
 	}
 
-	// TODO: Dummy code, remove later
-	for (size_t i = 0; i < 3; i++) {
-		timings[i] = (2 - i) * n / 2;
-	}
-	max_error = (double) n;
-	max_error_arg = n > 0 ? n - 1 : 0;
-	for (size_t i = 0; i < 3; i++) {
-		max_error_func_values[i] = i * n / 2;
-	}
+	// TODO: Dummy code, rewrite later
 	ret = 0;
 	
 	delete[] results_sin_ha;

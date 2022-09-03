@@ -22,6 +22,10 @@ namespace TestbenchTerminal
             {
                 Console.WriteLine($"I'm tired... exceptionally: {e}");
             }
+            foreach (var value in timings)
+            {
+                Console.WriteLine(value);
+            }
             Console.WriteLine("Hello World!");
         }
     }
