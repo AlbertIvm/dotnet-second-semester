@@ -53,7 +53,21 @@ namespace TestbenchTerminal
             Console.WriteLine($"Least LA to HA timing ratio is {benchmark.LeastLaToHaTimingRatio}, " +
                               $"and least EP to HA timing ratio is {benchmark.LeastEpToHaTimingRatio}");
 
-            //MKLBenchmarkApp.ViewData view = new();
+
+            MKLBenchmarkApp.ViewData view = new();
+            view.Load("deleteme.vmbenchmark");
+            view.AddVMTime(MKLWrapper.VMf.Sin, grid);
+            view.AddVMAccuracy(MKLWrapper.VMf.SinCos, grid);
+            view.Save("deleteme.vmbenchmark");
+
+            foreach (var time in view.Benchmark.TimeResults)
+            {
+                Console.WriteLine(time);
+            }
+            foreach (var accuracy in view.Benchmark.AccuracyResults)
+            {
+                Console.WriteLine(accuracy);
+            }
         }
     }
 }

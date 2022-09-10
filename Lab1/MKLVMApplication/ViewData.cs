@@ -10,7 +10,6 @@ namespace MKLBenchmarkApp
     public class ViewData
     {
         public VMBenchmark Benchmark { get; set; }
-        public bool HasBenchmarkDataChanged { get; set; }
         public bool ChangesNotSaved { get; set; } = false;
 
         public ViewData()
@@ -21,11 +20,13 @@ namespace MKLBenchmarkApp
         public void AddVMTime(VMf function, VMGrid grid)
         {
             Benchmark.AddVMTime(function, grid);
+            ChangesNotSaved = true;
         }
 
         public void AddVMAccuracy(VMf function, VMGrid grid)
         {
             Benchmark.AddVMAccuracy(function, grid);
+            ChangesNotSaved = true;
         }
 
         public bool Save(string filename)
@@ -38,8 +39,10 @@ namespace MKLBenchmarkApp
                 fileStream = File.Open(filename, FileMode.Create);
                 BinaryFormatter formatter = new BinaryFormatter();
                 formatter.Serialize(fileStream, Benchmark);
-                ChangesNotSaved = false;
+                
+                // This duplication is necessary because we can save our data to multiple files
                 saved = true;
+                ChangesNotSaved = false;
             }
             catch (Exception ex)
             {
@@ -58,7 +61,7 @@ namespace MKLBenchmarkApp
             return saved;
         }
 
-        public static bool Load(string filename, ref VMBenchmark vmb)
+        public bool Load(string filename)
         {
             bool loaded = false;
             FileStream? fileStream = null;
@@ -68,8 +71,9 @@ namespace MKLBenchmarkApp
                 fileStream = File.Open(filename, FileMode.Open);
                 BinaryFormatter formatter = new BinaryFormatter();
 
-                vmb = formatter.Deserialize(fileStream) as VMBenchmark;
+                Benchmark = formatter.Deserialize(fileStream) as VMBenchmark;
                 loaded = true;
+                ChangesNotSaved = false;
             }
             catch (Exception ex)
             {

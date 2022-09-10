@@ -22,14 +22,14 @@
 
         <!--Menu Grid-->
         <Grid Name="menuGrid" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
-            <!--Grid prologue-->
+            <!-- Grid prologue -->
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="20"></RowDefinition>
             </Grid.RowDefinitions>
-            <!--Grid prologue-->
+            <!-- Grid prologue -->
 
             <!--Row 0-->
             <Menu Grid.Row="0" Grid.Column="0">
@@ -47,8 +47,30 @@
         </Grid>
         <!-- Menu Grid -->
 
+        <!-- Grid with general benchmark data -->
+        <Border Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="DarkGray" Height="200">
+            <Grid Name="generalBenchmarkDataGrid">
+                <!-- Grid prologue -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <!-- Grid prologue -->
+                <!-- Column 0 -->
+                <TextBlock Grid.Row="0" Grid.Column="0">Benchmark data not saved: False</TextBlock>
+                <TextBlock Grid.Row="1" Grid.Column="0">Minimal LA to HA timing ratio is: 0.0</TextBlock>
+                <TextBlock Grid.Row="2" Grid.Column="0">Minimal EP to HA timing ratio is: 0.0</TextBlock>
+                <!-- Column 0 -->
+            </Grid>
+        </Border>
+        <!-- Grid with general benchmark data -->
+        
         <!-- Grid with info for new data -->
-        <Border Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" BorderThickness="1" BorderBrush="DarkGray" Height="200">
+        <Border Grid.Row="2" Grid.Column="0" BorderThickness="1" BorderBrush="DarkGray" Height="200">
             <Grid Name="newBenchmarkDataGrid">
                 <!-- Grid prologue -->
                 <Grid.ColumnDefinitions>
@@ -79,6 +101,52 @@
             </Grid>
         </Border>
         <!-- Grid with info for new data -->
+
+        <!-- Grid with info about timings -->
+        <Border Grid.Row="1" Grid.Column="1" BorderThickness="1" BorderBrush="DarkGray">
+            <Grid Name="vmTimeGrid">
+                <!-- Grid prologue -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <!-- Grid prologue -->
+                <!-- Column 0 -->
+                <ListBox Grid.Row="0" Grid.Column="0"/>
+                <!-- Column 0 -->
+
+                <!-- Column 1 -->
+                <TextBlock Grid.Row="0" Grid.Column="1"/>
+                <!-- Column 1 -->
+            </Grid>
+        </Border>
+        <!-- Grid with info about timings -->
+
+        <!-- Grid with info about accuracy -->
+        <Border Grid.Row="2" Grid.Column="1" BorderThickness="1" BorderBrush="DarkGray">
+            <Grid Name="vmAccuracyGrid">
+                <!-- Grid prologue -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <!-- Grid prologue -->
+                <!-- Column 0 -->
+                <ListBox Grid.Row="0" Grid.Column="0"/>
+                <!-- Column 0 -->
+
+                <!-- Column 1 -->
+                <!-- Column 1 -->
+
+            </Grid>
+        </Border>
+        <!-- Grid with info about accuracy -->
     </Grid>
     <!-- Main Grid -->
 </Window>
