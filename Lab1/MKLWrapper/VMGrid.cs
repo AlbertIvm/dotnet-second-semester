@@ -1,5 +1,8 @@
-﻿namespace MKLWrapper
+﻿using System;
+
+namespace MKLWrapper
 {
+    [Serializable]
     public class VMGrid
     {
         public int NodesNumber { get; set; }

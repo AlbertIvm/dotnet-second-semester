@@ -1,5 +1,8 @@
-﻿namespace MKLWrapper
+﻿using System;
+
+namespace MKLWrapper
 {
+    [Serializable]
     public struct VMAccuracy
     {
         public VMGrid Grid { get; set; }

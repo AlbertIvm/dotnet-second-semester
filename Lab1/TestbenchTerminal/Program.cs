@@ -1,5 +1,6 @@
 ﻿using System;
 using MKLWrapper;
+using MKLBenchmarkApp;
 
 namespace TestbenchTerminal
 {
@@ -15,18 +16,29 @@ namespace TestbenchTerminal
             try
             {
                 MKLWrapper.VMBenchmark.CallMKLFunction(
-                        MKLWrapper.VMf.Cos, points.Length, points, timings,
+                        MKLWrapper.VMf.SinCos, points.Length, points, timings,
                         out maxError, out maxErrorArg, maxErrorFuncValues, out retCode);
+                if (retCode != 0) {
+                    Console.WriteLine("Something went wrong during calculation");
+                }
+                else
+                {
+                    Console.WriteLine("Timings for HA, LA and EP respectively:");
+                    foreach (var value in timings)
+                    {
+                        Console.WriteLine(value);
+                    }
+                    Console.WriteLine($"Max error {maxError} is reached at {maxErrorArg}.");
+                    Console.WriteLine($"Func values at these point are {maxErrorFuncValues[0]} for HA, " +
+                                      $"{maxErrorFuncValues[1]} for LA and {maxErrorFuncValues[2]} for EP modes.");
+                }
             }
             catch (Exception e)
             {
                 Console.WriteLine($"I'm tired... exceptionally: {e}");
             }
-            foreach (var value in timings)
-            {
-                Console.WriteLine(value);
-            }
-            Console.WriteLine("Hello World!");
+
+            //MKLBenchmarkApp.ViewData view = new();
         }
     }
 }

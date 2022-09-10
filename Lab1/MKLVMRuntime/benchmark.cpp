@@ -34,81 +34,140 @@ void CallMKLFunction(int function_code, const MKL_INT n, const double *points, d
 	clock::time_point before;
 	ms duration;
 
-	// A hack to warm up cache
-	vmdSin(n, points, results_sin_ha, VML_EP);
-	
-	switch (function_code) {
-	case VMf::Sin:
-		// Run high accuracy calculations
-		before = clock::now();
-		vmdSin(n, points, results_sin_ha, VML_HA);
-		duration = clock::now() - before;
-		timings[0] = duration.count();
-		
-		// Run low accuracy calculations
-		before = clock::now();
-		vmdSin(n, points, results_sin_la, VML_LA);
-		duration = clock::now() - before;
-		timings[1] = duration.count();
+	try {
+		switch (function_code) {
+		case VMf::Sin:
+			// A hack to warm up cache
+			vmdSin(n, points, results_sin_ha, VML_HA);
+			vmdSin(n, points, results_sin_la, VML_LA);
+			vmdSin(n, points, results_sin_ep, VML_EP);
 
-		// Run enhanced performance calculations
-		before = clock::now();
-		vmdSin(n, points, results_sin_ep, VML_EP);
-		duration = clock::now() - before;
-		timings[2] = duration.count();
+			// Run high accuracy calculations
+			before = clock::now();
+			vmdSin(n, points, results_sin_ha, VML_HA);
+			duration = clock::now() - before;
+			timings[0] = duration.count();
 
-		// Calculating errors
-		for (size_t i = 0; i < n; ++i) {
-			auto error = abs(results_sin_ha[i] - results_sin_ep[i]);
-			if (error > max_error) {
-				max_error = error;
-				max_error_arg = points[i];
-				max_error_func_values[0] = results_sin_ha[i];
-				max_error_func_values[1] = results_sin_la[i];
-				max_error_func_values[2] = results_sin_ep[i];
+			// Run low accuracy calculations
+			before = clock::now();
+			vmdSin(n, points, results_sin_la, VML_LA);
+			duration = clock::now() - before;
+			timings[1] = duration.count();
+
+			// Run enhanced performance calculations
+			before = clock::now();
+			vmdSin(n, points, results_sin_ep, VML_EP);
+			duration = clock::now() - before;
+			timings[2] = duration.count();
+
+			// Calculating errors
+			for (size_t i = 0; i < n; ++i) {
+				auto error = abs(results_sin_ha[i] - results_sin_ep[i]);
+				if (error > max_error) {
+					max_error = error;
+					max_error_arg = points[i];
+					max_error_func_values[0] = results_sin_ha[i];
+					max_error_func_values[1] = results_sin_la[i];
+					max_error_func_values[2] = results_sin_ep[i];
+				}
 			}
-		}
-		break;
-	case VMf::Cos:
-		// Run high accuracy calculations
-		before = clock::now();
-		vmdCos(n, points, results_cos_ha, VML_HA);
-		duration = clock::now() - before;
-		timings[0] = duration.count();
+			break;
+		case VMf::Cos:
+			// A hack to warm up cache
+			vmdCos(n, points, results_cos_ha, VML_HA);
+			vmdCos(n, points, results_cos_la, VML_LA);
+			vmdCos(n, points, results_cos_ep, VML_EP);
 
-		// Run low accuracy calculations
-		before = clock::now();
-		vmdCos(n, points, results_cos_la, VML_LA);
-		duration = clock::now() - before;
-		timings[1] = duration.count();
+			// Run high accuracy calculations
+			before = clock::now();
+			vmdCos(n, points, results_cos_ha, VML_HA);
+			duration = clock::now() - before;
+			timings[0] = duration.count();
 
-		// Run enhanced performance calculations
-		before = clock::now();
-		vmdCos(n, points, results_cos_ep, VML_EP);
-		duration = clock::now() - before;
-		timings[2] = duration.count();
+			// Run low accuracy calculations
+			before = clock::now();
+			vmdCos(n, points, results_cos_la, VML_LA);
+			duration = clock::now() - before;
+			timings[1] = duration.count();
 
-		// Calculating errors
-		for (size_t i = 0; i < n; ++i) {
-			auto error = abs(results_cos_ha[i] - results_cos_ep[i]);
-			if (error > max_error) {
-				max_error = error;
-				max_error_arg = points[i];
-				max_error_func_values[0] = results_cos_ha[i];
-				max_error_func_values[1] = results_cos_la[i];
-				max_error_func_values[2] = results_cos_ep[i];
+			// Run enhanced performance calculations
+			before = clock::now();
+			vmdCos(n, points, results_cos_ep, VML_EP);
+			duration = clock::now() - before;
+			timings[2] = duration.count();
+
+			// Calculating errors
+			for (size_t i = 0; i < n; ++i) {
+				auto error = abs(results_cos_ha[i] - results_cos_ep[i]);
+				if (error > max_error) {
+					max_error = error;
+					max_error_arg = points[i];
+					max_error_func_values[0] = results_cos_ha[i];
+					max_error_func_values[1] = results_cos_la[i];
+					max_error_func_values[2] = results_cos_ep[i];
+				}
 			}
+			break;
+		case VMf::SinCos:
+			// A hack to warm up cache
+			vmdSin(n, points, results_sin_ha, VML_HA);
+			vmdSin(n, points, results_sin_la, VML_LA);
+			vmdSin(n, points, results_sin_ep, VML_EP);
+			vmdCos(n, points, results_cos_ha, VML_HA);
+			vmdCos(n, points, results_cos_la, VML_LA);
+			vmdCos(n, points, results_cos_ep, VML_EP);
+
+			// Run high accuracy calculations
+			before = clock::now();
+			vmdSinCos(n, points, results_sin_ha, results_cos_ha, VML_HA);
+			duration = clock::now() - before;
+			timings[0] = duration.count();
+
+			// Run low accuracy calculations
+			before = clock::now();
+			vmdSinCos(n, points, results_sin_la, results_cos_la, VML_LA);
+			duration = clock::now() - before;
+			timings[1] = duration.count();
+
+			// Run enhanced performance calculations
+			before = clock::now();
+			vmdSinCos(n, points, results_sin_ep, results_cos_ep, VML_EP);
+			duration = clock::now() - before;
+			timings[2] = duration.count();
+
+			// Calculating errors, taking the maximum out of cos's and sin's errors
+			for (size_t i = 0; i < n; ++i) {
+				auto error_sin = abs(results_sin_ha[i] - results_sin_ep[i]);
+				auto error_cos = abs(results_cos_ha[i] - results_cos_ep[i]);
+				if (error_cos > error_sin and error_cos > max_error) {
+					max_error = error_cos;
+					max_error_arg = points[i];
+					max_error_func_values[0] = results_cos_ha[i];
+					max_error_func_values[1] = results_cos_la[i];
+					max_error_func_values[2] = results_cos_ep[i];
+				}
+				if (error_sin > error_cos and error_sin > max_error) {
+					max_error = error_sin;
+					max_error_arg = points[i];
+					max_error_func_values[0] = results_sin_ha[i];
+					max_error_func_values[1] = results_sin_la[i];
+					max_error_func_values[2] = results_sin_ep[i];
+				}
+			}
+			break;
 		}
-		break;
-	case VMf::SinCos:
-		//vmdSinCos(n, points, results_sin_ha, results_cos_ha, VML_HA);
-		//vmdSinCos(n, points, results_sin_la, results_cos_la, VML_LA);
-		//vmdSinCos(n, points, results_sin_ep, results_cos_ep, VML_EP);
-		break;
 	}
-
-	// TODO: Dummy code, rewrite later
-	ret = 0;
+	catch (const std::exception& error) {
+		// We quit quietly
+		ret = -1;
+		delete[] results_sin_ha;
+		delete[] results_sin_la;
+		delete[] results_sin_ep;
+		delete[] results_cos_ha;
+		delete[] results_cos_la;
+		delete[] results_cos_ep;
+		return;
+	}
 	
 	delete[] results_sin_ha;
 	delete[] results_sin_la;
@@ -116,4 +175,7 @@ void CallMKLFunction(int function_code, const MKL_INT n, const double *points, d
 	delete[] results_cos_ha;
 	delete[] results_cos_la;
 	delete[] results_cos_ep;
+
+	// If everything went well
+	ret = 0;
 }

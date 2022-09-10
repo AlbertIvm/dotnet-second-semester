@@ -1,8 +1,10 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Runtime.InteropServices;
 
 namespace MKLWrapper
 {
+    [Serializable]
     public class VMBenchmark
     {
         public ObservableCollection<VMTime> TimeResults { get; set; }
@@ -18,6 +20,7 @@ namespace MKLWrapper
 
         }
 
+        // You should both check the ret value and catch exceptions from this function
         [DllImport("..\\..\\..\\..\\x64\\Debug\\MKLVMRuntime.dll", CallingConvention = CallingConvention.Cdecl)]
         public static extern void CallMKLFunction(
                 VMf function_code, int nodesNumber, double[] points,

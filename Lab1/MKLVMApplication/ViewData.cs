@@ -7,7 +7,7 @@ using MKLWrapper;
 
 namespace MKLBenchmarkApp
 {
-    internal class ViewData
+    public class ViewData
     {
         public VMBenchmark Benchmark { get; set; }
         public bool HasBenchmarkDataChanged { get; set; }

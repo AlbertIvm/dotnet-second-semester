@@ -13,6 +13,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MKLBenchmarkApp", "MKLVMApp
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestbenchTerminal", "TestbenchTerminal\TestbenchTerminal.csproj", "{A5CA47C3-3326-45EE-B986-16799E4D8AE3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{1EBC2047-1364-4643-9FDD-00D4BFF6B70B} = {1EBC2047-1364-4643-9FDD-00D4BFF6B70B}
+		{0F4916C0-2FC0-40C7-BDE7-02DE8D21039D} = {0F4916C0-2FC0-40C7-BDE7-02DE8D21039D}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
