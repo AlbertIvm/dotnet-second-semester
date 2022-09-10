@@ -50,6 +50,8 @@ namespace TestbenchTerminal
             {
                 Console.WriteLine(accuracy);
             }
+            Console.WriteLine($"Least LA to HA timing ratio is {benchmark.LeastLaToHaTimingRatio}, " +
+                              $"and least EP to HA timing ratio is {benchmark.LeastEpToHaTimingRatio}");
 
             //MKLBenchmarkApp.ViewData view = new();
         }

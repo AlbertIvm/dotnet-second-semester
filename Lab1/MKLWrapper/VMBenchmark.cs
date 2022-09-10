@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Runtime.InteropServices;
 
 namespace MKLWrapper
@@ -10,10 +11,27 @@ namespace MKLWrapper
         // Public properties
         public ObservableCollection<VMTime> TimeResults { get; set; }
         public ObservableCollection<VMAccuracy> AccuracyResults { get; set; }
+        public double LeastLaToHaTimingRatio
+        {
+            get
+            {
+                return _leastLaToHaTimingRatio;
+            }
+        }
+
+        public double LeastEpToHaTimingRatio
+        {
+            get
+            {
+                return _leastEpToHaTimingRatio;
+            }
+        }
 
         // Public methods
         public VMBenchmark()
         {
+            _leastLaToHaTimingRatio = 0.0;
+            _leastEpToHaTimingRatio = 0.0;
             TimeResults = new();
             AccuracyResults = new();
         }
@@ -28,8 +46,17 @@ namespace MKLWrapper
             // If we fail, we fail silently
             if (SafeCallMKLFunction(
                     functionType, grid, out timings, out maxError, out maxErrorArg, out maxErrorFuncValues))
-            {
-                TimeResults.Add(new VMTime(grid, functionType, timings[0], timings[1], timings[2]));
+            {   
+                try
+                {
+                    TimeResults.Add(new VMTime(grid, functionType, timings[0], timings[1], timings[2]));
+                    _leastLaToHaTimingRatio = TimeResults.Min(result => result.LaToHaTimingRatio);
+                    _leastEpToHaTimingRatio = TimeResults.Min(result => result.EpToHaTimingRatio);
+                }
+                catch (ArgumentOutOfRangeException e)
+                {
+                    // Something is clearly wrong with timings, but we should not let this crash the app
+                }
             }
         }
 
@@ -107,5 +134,9 @@ namespace MKLWrapper
                 return false;
             }
         }
+
+        // Private fields
+        double _leastLaToHaTimingRatio;
+        double _leastEpToHaTimingRatio;
     }
 }
