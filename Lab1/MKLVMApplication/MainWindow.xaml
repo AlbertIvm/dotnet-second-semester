@@ -34,13 +34,13 @@
             <!--Row 0-->
             <Menu Grid.Row="0" Grid.Column="0">
                 <MenuItem Header="File" Width="40" Height="20">
-                    <MenuItem Header="New" Width="150" Height="20"/>
-                    <MenuItem Header="Open" Width="150" Height="20"/>
-                    <MenuItem Header="Save" Width="150" Height="20"/>
+                    <MenuItem Header="New" Width="150" Height="20" Click="OnCreateNewBenchmark"/>
+                    <MenuItem Header="Open" Width="150" Height="20" Click="OnOpenBenchmark"/>
+                    <MenuItem Header="Save" Width="150" Height="20" Click="OnSaveBenchmark"/>
                 </MenuItem>
                 <MenuItem Header="Edit" Height="20" Width="40">
-                    <MenuItem Header="Add VMTime" Width="250" Height="20"/>
-                    <MenuItem Header="Add VMAccuracy" Width="250" Height="20"/>
+                    <MenuItem Header="Add VMTime" Width="250" Height="20" Click="OnAddVMTime"/>
+                    <MenuItem Header="Add VMAccuracy" Width="250" Height="20" Click="OnAddVMAccuracy"/>
                 </MenuItem>
             </Menu>
             <!--Row 0-->
@@ -61,7 +61,7 @@
                 </Grid.RowDefinitions>
                 <!-- Grid prologue -->
                 <!-- Column 0 -->
-                <TextBlock Grid.Row="0" Grid.Column="0">Benchmark data not saved: False</TextBlock>
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path=ChangesNotSaved}"></TextBlock>
                 <TextBlock Grid.Row="1" Grid.Column="0">Minimal LA to HA timing ratio is: 0.0</TextBlock>
                 <TextBlock Grid.Row="2" Grid.Column="0">Minimal EP to HA timing ratio is: 0.0</TextBlock>
                 <!-- Column 0 -->

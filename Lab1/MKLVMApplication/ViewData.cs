@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows;
@@ -7,14 +8,38 @@ using MKLWrapper;
 
 namespace MKLBenchmarkApp
 {
-    public class ViewData
+    public class ViewData : INotifyPropertyChanged
     {
-        public VMBenchmark Benchmark { get; set; }
-        public bool ChangesNotSaved { get; set; } = false;
+        public VMBenchmark Benchmark
+        {
+            get => _benchmark;
+            set
+            {
+                _benchmark = value;
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("Benchmark"));
+                }
+            }
+                
+        }
+        public bool ChangesNotSaved {
+            get => _changesNotSaved;
+            set
+            {
+                _changesNotSaved = value;
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("ChangesNotSaved"));
+                }
+            }
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public ViewData()
         {
-            Benchmark = new VMBenchmark();
+            _changesNotSaved = false;
+            _benchmark = new VMBenchmark();
         }
 
         public void AddVMTime(VMf function, VMGrid grid)
@@ -91,5 +116,8 @@ namespace MKLBenchmarkApp
 
             return loaded;
         }
+
+        private bool _changesNotSaved;
+        private VMBenchmark _benchmark;
     }
 }
