@@ -7,8 +7,11 @@ namespace MKLBenchmarkApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        private ViewData viewData { get; set; }
+
         public MainWindow()
         {
+            DataContext = viewData;
             InitializeComponent();
         }
     }

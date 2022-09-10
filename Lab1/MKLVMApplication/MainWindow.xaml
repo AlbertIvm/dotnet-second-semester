@@ -5,8 +5,80 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MKLBenchmarkApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MKL VM Benchmark" Height="450" Width="800">
+    <!--Main Grid-->
+    <Grid Name="mainGrid">
+        <!--Grid prologue-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <!--Grid prologue-->
 
+        <!--Menu Grid-->
+        <Grid Name="menuGrid" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+            <!--Grid prologue-->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"></RowDefinition>
+            </Grid.RowDefinitions>
+            <!--Grid prologue-->
+
+            <!--Row 0-->
+            <Menu Grid.Row="0" Grid.Column="0">
+                <MenuItem Header="File" Width="40" Height="20">
+                    <MenuItem Header="New" Width="150" Height="20"/>
+                    <MenuItem Header="Open" Width="150" Height="20"/>
+                    <MenuItem Header="Save" Width="150" Height="20"/>
+                </MenuItem>
+                <MenuItem Header="Edit" Height="20" Width="40">
+                    <MenuItem Header="Add VMTime" Width="250" Height="20"/>
+                    <MenuItem Header="Add VMAccuracy" Width="250" Height="20"/>
+                </MenuItem>
+            </Menu>
+            <!--Row 0-->
+        </Grid>
+        <!-- Menu Grid -->
+
+        <!-- Grid with info for new data -->
+        <Border Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" BorderThickness="1" BorderBrush="DarkGray" Height="200">
+            <Grid Name="newBenchmarkDataGrid">
+                <!-- Grid prologue -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <!-- Grid prologue -->
+                <!-- Column 0 -->
+                <TextBlock Grid.Row="0" Grid.Column="0">Function to test</TextBlock>
+                <TextBlock Grid.Row="1" Grid.Column="0">Nodes number</TextBlock>
+                <TextBlock Grid.Row="2" Grid.Column="0">Left border</TextBlock>
+                <TextBlock Grid.Row="3" Grid.Column="0">Right border</TextBlock>
+                <!-- Column 0 -->
+
+                <!-- Column 1 -->
+                <ComboBox Grid.Row="0" Grid.Column="1"/>
+                <TextBox Grid.Row="1" Grid.Column="1"/>
+                <TextBox Grid.Row="2" Grid.Column="1"/>
+                <TextBox Grid.Row="3" Grid.Column="1"/>
+                <!-- Column 1 -->
+
+            </Grid>
+        </Border>
+        <!-- Grid with info for new data -->
     </Grid>
+    <!-- Main Grid -->
 </Window>
