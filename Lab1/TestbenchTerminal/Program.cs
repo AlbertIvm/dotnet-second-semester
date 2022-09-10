@@ -9,7 +9,7 @@ namespace TestbenchTerminal
         static void Main(string[] args)
         {
             double[] points = new double[] { 0.0, Math.PI / 2, Math.PI };
-            double[] timings = new double[points.Length];
+            double[] timings = new double[3];
             double maxError, maxErrorArg;
             double[] maxErrorFuncValues = new double[3];
             int retCode;
@@ -29,13 +29,26 @@ namespace TestbenchTerminal
                         Console.WriteLine(value);
                     }
                     Console.WriteLine($"Max error {maxError} is reached at {maxErrorArg}.");
-                    Console.WriteLine($"Func values at these point are {maxErrorFuncValues[0]} for HA, " +
+                    Console.WriteLine($"Func values at these points are {maxErrorFuncValues[0]} for HA, " +
                                       $"{maxErrorFuncValues[1]} for LA and {maxErrorFuncValues[2]} for EP modes.");
                 }
             }
             catch (Exception e)
             {
                 Console.WriteLine($"I'm tired... exceptionally: {e}");
+            }
+
+            MKLWrapper.VMBenchmark benchmark = new();
+            MKLWrapper.VMGrid grid = new VMGrid(3, 0.0, Math.PI);
+            benchmark.AddVMTime(MKLWrapper.VMf.Sin, grid);
+            benchmark.AddVMAccuracy(MKLWrapper.VMf.Cos, grid);
+            foreach (var time in benchmark.TimeResults)
+            {
+                Console.WriteLine(time);
+            }
+            foreach (var accuracy in benchmark.AccuracyResults)
+            {
+                Console.WriteLine(accuracy);
             }
 
             //MKLBenchmarkApp.ViewData view = new();

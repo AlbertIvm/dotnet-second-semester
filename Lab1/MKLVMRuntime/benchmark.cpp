@@ -30,9 +30,9 @@ void CallMKLFunction(int function_code, const MKL_INT n, const double *points, d
 	// Time measurement code is far from perfect, but is best
 	// I could do without a higher order function
 	using clock = std::chrono::system_clock;
-	using ms = std::chrono::duration<double, std::milli>;
+	using mcs = std::chrono::duration<double, std::micro>;
 	clock::time_point before;
-	ms duration;
+	mcs duration;
 
 	try {
 		switch (function_code) {

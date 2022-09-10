@@ -13,6 +13,20 @@ namespace MKLWrapper
         public double MaxAbsErrorValueLa { get; set; }
         public double MaxAbsErrorValueEp { get; set; }
 
+        public VMAccuracy(VMGrid grid, VMf functionType,
+                          double maxAbsError, double maxAbsErrorArgument,
+                          double maxAbsErrorValueHa, double maxAbsErrorValueLa,
+                          double maxAbsErrorValueEp)
+        {
+            Grid = grid;
+            FunctionType = functionType;
+            MaxAbsError = maxAbsError;
+            MaxAbsErrorArgument = maxAbsErrorArgument;
+            MaxAbsErrorValueHa = maxAbsErrorValueHa;
+            MaxAbsErrorValueLa = maxAbsErrorValueLa;
+            MaxAbsErrorValueEp = maxAbsErrorValueEp;
+        }
+
         public override string ToString()
         {
             return $"VMAccuracy properties: grid: {Grid.ToString()}, " +
