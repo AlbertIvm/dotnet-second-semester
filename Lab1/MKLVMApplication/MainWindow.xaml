@@ -10,6 +10,9 @@
         <local:ChangesNotSavedStringConverter x:Key="key_changes_not_saved_converter"/>
         <local:LeastLaToHaTimingRatioStringConverter x:Key="key_la_to_ha_ratio_converter"/>
         <local:LeastEpToHaTimingRatioStringConverter x:Key="key_ep_to_ha_ratio_converter"/>
+        <local:VMTimeExtraInfoStringConverter x:Key="key_vmtime_extra_info_converter"/>
+        <local:VMAccuracyMaxErrorArgStringConverter x:Key="key_vmaccuracy_max_error_arg_converter"/>
+        <local:VMAccuracyMaxErrorValuesStringConverter x:Key="key_vmaccuracy_max_error_values_converter"/>
     </Window.Resources>
     <!--Main Grid-->
     <Grid Name="mainGrid">
@@ -29,10 +32,10 @@
         <Grid Name="menuGrid" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
             <!-- Grid prologue -->
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="20"></RowDefinition>
+                <RowDefinition Height="20"/>
             </Grid.RowDefinitions>
             <!-- Grid prologue -->
 
@@ -57,12 +60,12 @@
             <Grid Name="generalBenchmarkDataGrid">
                 <!-- Grid prologue -->
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"></RowDefinition>
-                    <RowDefinition Height="1*"></RowDefinition>
-                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
                 <!-- Grid prologue -->
                 <!-- Column 0 -->
@@ -79,14 +82,14 @@
             <Grid Name="newBenchmarkDataGrid">
                 <!-- Grid prologue -->
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100"></ColumnDefinition>
-                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"></RowDefinition>
-                    <RowDefinition Height="1*"></RowDefinition>
-                    <RowDefinition Height="1*"></RowDefinition>
-                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
                 <!-- Grid prologue -->
                 <!-- Column 0 -->
@@ -112,19 +115,19 @@
             <Grid Name="vmTimeGrid">
                 <!-- Grid prologue -->
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"></ColumnDefinition>
-                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
                 <!-- Grid prologue -->
                 <!-- Column 0 -->
-                <ListBox Grid.Row="0" Grid.Column="0" ItemsSource="{Binding Path=Benchmark.TimeResults}"/>
+                <ListBox Grid.Row="0" Grid.Column="0" Name="vmtimeListbox"  ItemsSource="{Binding Path=Benchmark.TimeResults}"/>
                 <!-- Column 0 -->
 
                 <!-- Column 1 -->
-                <TextBlock Grid.Row="0" Grid.Column="1"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" Text="{Binding ElementName=vmtimeListbox, Path=SelectedItem, Converter={StaticResource key_vmtime_extra_info_converter}}"/>
                 <!-- Column 1 -->
             </Grid>
         </Border>
@@ -135,18 +138,21 @@
             <Grid Name="vmAccuracyGrid">
                 <!-- Grid prologue -->
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"></ColumnDefinition>
-                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"></RowDefinition>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
                 <!-- Grid prologue -->
                 <!-- Column 0 -->
-                <ListBox Grid.Row="0" Grid.Column="0" ItemsSource="{Binding Path=Benchmark.AccuracyResults}"/>
+                <ListBox Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Name="vmaccuracyListbox" ItemsSource="{Binding Path=Benchmark.AccuracyResults}"/>
                 <!-- Column 0 -->
 
                 <!-- Column 1 -->
+                <TextBlock Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" Text="{Binding ElementName=vmaccuracyListbox, Path=SelectedItem, Converter={StaticResource key_vmaccuracy_max_error_arg_converter}}"/>
+                <TextBlock Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" Text="{Binding ElementName=vmaccuracyListbox, Path=SelectedItem, Converter={StaticResource key_vmaccuracy_max_error_values_converter}}"/>
                 <!-- Column 1 -->
 
             </Grid>
