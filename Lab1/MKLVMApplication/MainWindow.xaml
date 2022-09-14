@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MKLBenchmarkApp"
         mc:Ignorable="d"
-        Title="MKL VM Benchmark" Height="450" Width="800">
+        Title="MKL VM Benchmark" Height="450" Width="800" Closing="OnClosing">
     <!--Main Grid-->
     <Grid Name="mainGrid">
         <!--Grid prologue-->
@@ -62,8 +62,8 @@
                 <!-- Grid prologue -->
                 <!-- Column 0 -->
                 <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path=ChangesNotSaved}"></TextBlock>
-                <TextBlock Grid.Row="1" Grid.Column="0">Minimal LA to HA timing ratio is: 0.0</TextBlock>
-                <TextBlock Grid.Row="2" Grid.Column="0">Minimal EP to HA timing ratio is: 0.0</TextBlock>
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path=Benchmark.LeastLaToHaTimingRatio}"/>
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="{Binding Path=Benchmark.LeastEpToHaTimingRatio}"/>
                 <!-- Column 0 -->
             </Grid>
         </Border>
@@ -92,10 +92,10 @@
                 <!-- Column 0 -->
 
                 <!-- Column 1 -->
-                <ComboBox Grid.Row="0" Grid.Column="1"/>
-                <TextBox Grid.Row="1" Grid.Column="1"/>
-                <TextBox Grid.Row="2" Grid.Column="1"/>
-                <TextBox Grid.Row="3" Grid.Column="1"/>
+                <ComboBox Grid.Row="0" Grid.Column="1" Name="functionComboBox"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=NewNodesNumber}"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=NewLeftBorder}"/>
+                <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Path=NewRightBorder}"/>
                 <!-- Column 1 -->
 
             </Grid>

@@ -34,7 +34,11 @@ namespace MKLBenchmarkApp
                 }
             }
         }
-        public event PropertyChangedEventHandler PropertyChanged;
+        public int ComboBoxSelection { get; set; }
+        public int NewNodesNumber { get; set; }
+        public double NewLeftBorder { get; set; }
+        public double NewRightBorder { get; set; }
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public ViewData()
         {

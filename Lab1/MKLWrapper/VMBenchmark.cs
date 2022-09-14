@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.InteropServices;
 
 namespace MKLWrapper
 {
     [Serializable]
-    public class VMBenchmark
+    public class VMBenchmark : INotifyPropertyChanged
     {
         // Public properties
         public ObservableCollection<VMTime> TimeResults { get; set; }
@@ -26,6 +27,8 @@ namespace MKLWrapper
                 return _leastEpToHaTimingRatio;
             }
         }
+        [field: NonSerializedAttribute()]
+        public event PropertyChangedEventHandler PropertyChanged;
 
         // Public methods
         public VMBenchmark()
@@ -52,6 +55,11 @@ namespace MKLWrapper
                     TimeResults.Add(new VMTime(grid, functionType, timings[0], timings[1], timings[2]));
                     _leastLaToHaTimingRatio = TimeResults.Min(result => result.LaToHaTimingRatio);
                     _leastEpToHaTimingRatio = TimeResults.Min(result => result.EpToHaTimingRatio);
+                    if (PropertyChanged != null)
+                    {
+                        PropertyChanged(this, new PropertyChangedEventArgs("LeastLaToHaTimingRatio"));
+                        PropertyChanged(this, new PropertyChangedEventArgs("LeastEpToHaTimingRatio"));
+                    }
                 }
                 catch (ArgumentOutOfRangeException e)
                 {

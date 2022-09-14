@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.ComponentModel;
+using System.Windows;
 
 using MKLWrapper;
 
@@ -16,6 +18,19 @@ namespace MKLBenchmarkApp
             viewData = new();
             DataContext = viewData;
             InitializeComponent();
+        }
+
+        public void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            functionComboBox.ItemsSource = Enum.GetValues(typeof(MKLWrapper.VMf));
+        }
+
+        public void OnClosing(object sender, CancelEventArgs e)
+        {
+            if (!ProceedWithBenchmarkReplacement())
+            {
+                e.Cancel = true;
+            }
         }
 
         private void OnCreateNewBenchmark(object sender, RoutedEventArgs e)
@@ -42,7 +57,7 @@ namespace MKLBenchmarkApp
         private void OnAddVMTime(object sender, RoutedEventArgs e)
         {
             // Dummy code, improve later
-            VMGrid grid = new VMGrid(5, 0.0, 1.0);
+            VMGrid grid = new VMGrid(viewData.NewNodesNumber, viewData.NewLeftBorder, viewData.NewRightBorder);
             VMf funcType = VMf.Sin;
             viewData.AddVMTime(funcType, grid);
         }
@@ -50,7 +65,7 @@ namespace MKLBenchmarkApp
         private void OnAddVMAccuracy(object sender, RoutedEventArgs e)
         {
             // Dummy code, improve later
-            VMGrid grid = new VMGrid(5, 0.0, 1.0);
+            VMGrid grid = new VMGrid(viewData.NewNodesNumber, viewData.NewLeftBorder, viewData.NewRightBorder);
             VMf funcType = VMf.Cos;
             viewData.AddVMAccuracy(funcType, grid);
         }

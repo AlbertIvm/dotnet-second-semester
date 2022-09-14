@@ -110,12 +110,9 @@ void CallMKLFunction(int function_code, const MKL_INT n, const double *points, d
 			break;
 		case VMf::SinCos:
 			// A hack to warm up cache
-			vmdSin(n, points, results_sin_ha, VML_HA);
-			vmdSin(n, points, results_sin_la, VML_LA);
-			vmdSin(n, points, results_sin_ep, VML_EP);
-			vmdCos(n, points, results_cos_ha, VML_HA);
-			vmdCos(n, points, results_cos_la, VML_LA);
-			vmdCos(n, points, results_cos_ep, VML_EP);
+			vmdSinCos(n, points, results_sin_ha, results_cos_ha, VML_HA);
+			vmdSinCos(n, points, results_sin_la, results_cos_la, VML_LA);
+			vmdSinCos(n, points, results_sin_ep, results_cos_ep, VML_EP);
 
 			// Run high accuracy calculations
 			before = clock::now();
