@@ -38,6 +38,7 @@ namespace MKLBenchmarkApp
             if (ProceedWithBenchmarkReplacement())
             {
                 viewData.Benchmark = new();
+                viewData.ChangesNotSaved = false;
             }
         }
 
@@ -57,17 +58,41 @@ namespace MKLBenchmarkApp
         private void OnAddVMTime(object sender, RoutedEventArgs e)
         {
             // Dummy code, improve later
-            VMGrid grid = new VMGrid(viewData.NewNodesNumber, viewData.NewLeftBorder, viewData.NewRightBorder);
-            VMf funcType = VMf.Sin;
-            viewData.AddVMTime(funcType, grid);
+            try
+            {
+                VMGrid grid = new VMGrid(viewData.NewNodesNumber, viewData.NewLeftBorder, viewData.NewRightBorder);
+                VMf funcType = VMf.Sin;
+                viewData.AddVMTime(funcType, grid);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                MessageBoxResult result = MessageBox.Show(
+                    messageBoxText: $"Failed to create a VMGrid object; exception: {ex}",
+                    caption: "MKL Benchmark App",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error,
+                    MessageBoxResult.Yes);
+            }
         }
 
         private void OnAddVMAccuracy(object sender, RoutedEventArgs e)
         {
             // Dummy code, improve later
-            VMGrid grid = new VMGrid(viewData.NewNodesNumber, viewData.NewLeftBorder, viewData.NewRightBorder);
-            VMf funcType = VMf.Cos;
-            viewData.AddVMAccuracy(funcType, grid);
+            try
+            {
+                VMGrid grid = new VMGrid(viewData.NewNodesNumber, viewData.NewLeftBorder, viewData.NewRightBorder);
+                VMf funcType = VMf.Cos;
+                viewData.AddVMAccuracy(funcType, grid);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                MessageBoxResult result = MessageBox.Show(
+                    messageBoxText: $"Failed to create a VMGrid object; exception: {ex}",
+                    caption: "MKL Benchmark App",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error,
+                    MessageBoxResult.Yes);
+            }
         }
 
         private bool SaveBenchmarkData()

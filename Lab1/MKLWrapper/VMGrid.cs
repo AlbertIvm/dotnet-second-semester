@@ -14,7 +14,7 @@ namespace MKLWrapper
                 if (value < 2)
                 {
                     throw new ArgumentOutOfRangeException(
-                            "Can't make VMGrid with less than two nodes", nameof(value));
+                            nameof(value), "Can't make a VMGrid with less than two nodes");
                 }
                 _nodesNumber = value;
             }
