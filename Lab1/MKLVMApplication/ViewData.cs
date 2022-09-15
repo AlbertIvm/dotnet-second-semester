@@ -34,7 +34,7 @@ namespace MKLBenchmarkApp
                 }
             }
         }
-        public int ComboBoxSelection { get; set; }
+        public MKLWrapper.VMf ComboBoxSelection { get; set; }
         public int NewNodesNumber { get; set; }
         public double NewLeftBorder { get; set; }
         public double NewRightBorder { get; set; }

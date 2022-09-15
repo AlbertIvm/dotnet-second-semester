@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 
 using MKLWrapper;
@@ -57,12 +59,10 @@ namespace MKLBenchmarkApp
 
         private void OnAddVMTime(object sender, RoutedEventArgs e)
         {
-            // Dummy code, improve later
             try
             {
                 VMGrid grid = new VMGrid(viewData.NewNodesNumber, viewData.NewLeftBorder, viewData.NewRightBorder);
-                VMf funcType = VMf.Sin;
-                viewData.AddVMTime(funcType, grid);
+                viewData.AddVMTime(viewData.ComboBoxSelection, grid);
             }
             catch (ArgumentOutOfRangeException ex)
             {
@@ -77,12 +77,10 @@ namespace MKLBenchmarkApp
 
         private void OnAddVMAccuracy(object sender, RoutedEventArgs e)
         {
-            // Dummy code, improve later
             try
             {
                 VMGrid grid = new VMGrid(viewData.NewNodesNumber, viewData.NewLeftBorder, viewData.NewRightBorder);
-                VMf funcType = VMf.Cos;
-                viewData.AddVMAccuracy(funcType, grid);
+                viewData.AddVMAccuracy(viewData.ComboBoxSelection, grid);
             }
             catch (ArgumentOutOfRangeException ex)
             {

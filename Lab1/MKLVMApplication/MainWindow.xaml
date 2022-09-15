@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MKLBenchmarkApp"
         mc:Ignorable="d"
-        Title="MKL VM Benchmark" Height="600" Width="1200" Closing="OnClosing">
+        Title="MKL VM Benchmark" Height="600" Width="1200" Loaded="OnLoaded" Closing="OnClosing">
     <Window.Resources>
         <local:ChangesNotSavedStringConverter x:Key="key_changes_not_saved_converter"/>
         <local:LeastLaToHaTimingRatioStringConverter x:Key="key_la_to_ha_ratio_converter"/>
@@ -117,7 +117,7 @@
                 <!-- Column 0 -->
 
                 <!-- Column 1 -->
-                <ComboBox Grid.Row="0" Grid.Column="1" Name="functionComboBox"/>
+                <ComboBox Grid.Row="0" Grid.Column="1" Name="functionComboBox" SelectedItem="{Binding Path=ComboBoxSelection}"/>
                 <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=NewNodesNumber}"/>
                 <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=NewLeftBorder}"/>
                 <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Path=NewRightBorder}"/>
