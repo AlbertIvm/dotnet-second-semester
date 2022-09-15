@@ -9,7 +9,15 @@ namespace MKLBenchmarkApp
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            return $"Changes to benchmark are not saved: {value}";
+            bool notSaved = (bool)value;
+            if (notSaved)
+            {
+                return $"There are unsaved changes";
+            }
+            else
+            {
+                return $"Everything is saved";
+            }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
@@ -23,7 +31,7 @@ namespace MKLBenchmarkApp
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            return $"Least LA to HA timings' ratio in benchmark: {value}";
+            return $"Least LA to HA timings' ratio in benchmark:\n{value}";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
@@ -37,7 +45,7 @@ namespace MKLBenchmarkApp
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            return $"Least EP to HA timings' ratio in benchmark: {value}";
+            return $"Least EP to HA timings' ratio in benchmark:\n{value}";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
@@ -54,7 +62,7 @@ namespace MKLBenchmarkApp
             try
             {
                 MKLWrapper.VMTime vmtime = (MKLWrapper.VMTime)value;
-                return $"EP to HA timings' ratio: {vmtime.EpToHaTimingRatio:0.####};\nLA to HA timings' ratio: {vmtime.LaToHaTimingRatio:0.####}";
+                return $"EP to HA timings' ratio: {vmtime.EpToHaTimingRatio:0.####}\nLA to HA timings' ratio: {vmtime.LaToHaTimingRatio:0.####}";
             }
             catch (NullReferenceException)
             {
@@ -68,7 +76,7 @@ namespace MKLBenchmarkApp
         }
     }
 
-    [ValueConversion(typeof(MKLWrapper.VMTime), typeof(string))]
+    [ValueConversion(typeof(MKLWrapper.VMAccuracy), typeof(string))]
     internal class VMAccuracyMaxErrorArgStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
@@ -76,7 +84,7 @@ namespace MKLBenchmarkApp
             try
             {
                 MKLWrapper.VMAccuracy vmaccuracy = (MKLWrapper.VMAccuracy)value;
-                return $"Point at which the error is maximal: {vmaccuracy.MaxAbsErrorArgument}";
+                return $"Point at which the error is maximum: {vmaccuracy.MaxAbsErrorArgument}";
             }
             catch (NullReferenceException)
             {
@@ -90,7 +98,29 @@ namespace MKLBenchmarkApp
         }
     }
 
-    [ValueConversion(typeof(MKLWrapper.VMTime), typeof(string))]
+    [ValueConversion(typeof(MKLWrapper.VMAccuracy), typeof(string))]
+    internal class VMAccuracyMaxAbsErrorStringConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            try
+            {
+                MKLWrapper.VMAccuracy vmaccuracy = (MKLWrapper.VMAccuracy)value;
+                return $"Maximum absolute error: {vmaccuracy.MaxAbsError}";
+            }
+            catch (NullReferenceException)
+            {
+                return DependencyProperty.UnsetValue;
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            return value;
+        }
+    }
+
+    [ValueConversion(typeof(MKLWrapper.VMAccuracy), typeof(string))]
     internal class VMAccuracyMaxErrorValuesStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
@@ -98,7 +128,7 @@ namespace MKLBenchmarkApp
             try
             {
                 MKLWrapper.VMAccuracy vmaccuracy = (MKLWrapper.VMAccuracy)value;
-                return $"Function's values at this point:\nHA: {vmaccuracy.MaxAbsErrorValueHa},\nLA: {vmaccuracy.MaxAbsErrorValueLa},\nEP: {vmaccuracy.MaxAbsErrorValueEp}";
+                return $"Function's values at this point:\nHA: {vmaccuracy.MaxAbsErrorValueHa}\nLA: {vmaccuracy.MaxAbsErrorValueLa}\nEP: {vmaccuracy.MaxAbsErrorValueEp}";
             }
             catch (NullReferenceException)
             {

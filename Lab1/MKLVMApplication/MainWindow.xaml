@@ -5,14 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MKLBenchmarkApp"
         mc:Ignorable="d"
-        Title="MKL VM Benchmark" Height="450" Width="800" Closing="OnClosing">
+        Title="MKL VM Benchmark" Height="600" Width="1200" Closing="OnClosing">
     <Window.Resources>
         <local:ChangesNotSavedStringConverter x:Key="key_changes_not_saved_converter"/>
         <local:LeastLaToHaTimingRatioStringConverter x:Key="key_la_to_ha_ratio_converter"/>
         <local:LeastEpToHaTimingRatioStringConverter x:Key="key_ep_to_ha_ratio_converter"/>
         <local:VMTimeExtraInfoStringConverter x:Key="key_vmtime_extra_info_converter"/>
         <local:VMAccuracyMaxErrorArgStringConverter x:Key="key_vmaccuracy_max_error_arg_converter"/>
+        <local:VMAccuracyMaxAbsErrorStringConverter x:Key="key_vmaccuracy_max_abs_error_converter"/>
         <local:VMAccuracyMaxErrorValuesStringConverter x:Key="key_vmaccuracy_max_error_values_converter"/>
+
+        <DataTemplate x:Key="key_listbox_item_datatemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path=FunctionType}"></TextBlock>
+                <GridSplitter/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=Grid}"></TextBlock>
+            </Grid>
+        </DataTemplate>
     </Window.Resources>
     <!--Main Grid-->
     <Grid Name="mainGrid">
@@ -56,7 +73,7 @@
         <!-- Menu Grid -->
 
         <!-- Grid with general benchmark data -->
-        <Border Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="DarkGray" Height="200">
+        <Border Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="Transparent" Height="200">
             <Grid Name="generalBenchmarkDataGrid">
                 <!-- Grid prologue -->
                 <Grid.ColumnDefinitions>
@@ -116,14 +133,14 @@
                 <!-- Grid prologue -->
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="200"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
                 <!-- Grid prologue -->
                 <!-- Column 0 -->
-                <ListBox Grid.Row="0" Grid.Column="0" Name="vmtimeListbox"  ItemsSource="{Binding Path=Benchmark.TimeResults}"/>
+                <ListBox Grid.Row="0" Grid.Column="0" Name="vmtimeListbox" ItemsSource="{Binding Path=Benchmark.TimeResults}" ItemTemplate="{StaticResource key_listbox_item_datatemplate}"/>
                 <!-- Column 0 -->
 
                 <!-- Column 1 -->
@@ -139,20 +156,22 @@
                 <!-- Grid prologue -->
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="200"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
                 <!-- Grid prologue -->
                 <!-- Column 0 -->
-                <ListBox Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Name="vmaccuracyListbox" ItemsSource="{Binding Path=Benchmark.AccuracyResults}"/>
+                <ListBox Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Name="vmaccuracyListbox" ItemsSource="{Binding Path=Benchmark.AccuracyResults}" ItemTemplate="{StaticResource key_listbox_item_datatemplate}"/>
                 <!-- Column 0 -->
 
                 <!-- Column 1 -->
                 <TextBlock Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" Text="{Binding ElementName=vmaccuracyListbox, Path=SelectedItem, Converter={StaticResource key_vmaccuracy_max_error_arg_converter}}"/>
-                <TextBlock Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" Text="{Binding ElementName=vmaccuracyListbox, Path=SelectedItem, Converter={StaticResource key_vmaccuracy_max_error_values_converter}}"/>
+                <TextBlock Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" Text="{Binding ElementName=vmaccuracyListbox, Path=SelectedItem, Converter={StaticResource key_vmaccuracy_max_abs_error_converter}}"/>
+                <TextBlock Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" Text="{Binding ElementName=vmaccuracyListbox, Path=SelectedItem, Converter={StaticResource key_vmaccuracy_max_error_values_converter}}"/>
                 <!-- Column 1 -->
 
             </Grid>
